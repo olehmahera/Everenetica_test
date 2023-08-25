@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Checkbox, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { removeCountry, setSelectedCountries } from '../../redux/countriesSlice';
+import { filterCountries, removeCountry, setSelectedCountries } from '../../redux/countriesSlice';
 import { Country } from '../../types/types';
 import { RootState } from '../../redux/store';
 import { CustomCard, CustomCardContent, CustomContainer, CustomCardActions, CustomCardTitle, CustomCardCode } from './StyledCountryCard';
@@ -25,6 +25,7 @@ export const CountryCard: FC<Props> = ({ country }) => {
       ? selectedCountries.filter((c: Country) => c.ccn3 !== ccn3)
       : [...selectedCountries, country];
     dispatch(setSelectedCountries(updatedSelectedCountries));
+    dispatch(filterCountries())
   }
 
   const handleRemoveCountry = () => {

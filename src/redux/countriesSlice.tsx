@@ -54,13 +54,7 @@ const countriesSlice = createSlice({
     },
     removeCountry: (state, action) => {
       const country = action.payload;
-      // const isCountrySelected = state.selectedCountries.includes(country);
-      // console.log(isCountrySelected, country, state.selectedCountries);
-      
-      // if (isCountrySelected) {
-      //   state.selectedCountries = state.selectedCountries.filter(selectedCountry => selectedCountry.ccn3 !== country.ccn3);
-      // } else {
-        state.selectedCountries.filter(selectedCountry => selectedCountry === country);
+        state.selectedCountries = state.selectedCountries.filter(selectedCountry => selectedCountry.ccn3 !== country.ccn3);
       // }
     },
     setSearchText: (state, action) => {
@@ -77,9 +71,14 @@ const countriesSlice = createSlice({
         return searchText === ''
         ? false
         : officialName.includes(searchTextLower)
-
       });
-      const visibleCountries = Object.assign(filtered, selectedCountries)  
+
+      const visibleCountries = [...selectedCountries]; 
+      filtered.forEach((country) => {
+        if (!visibleCountries.some((selectedCountry) => selectedCountry.ccn3 === country.ccn3)) {
+          visibleCountries.push(country);
+        }
+      });
       state.filteredCountries = visibleCountries;
       console.log(state.filteredCountries);
       
