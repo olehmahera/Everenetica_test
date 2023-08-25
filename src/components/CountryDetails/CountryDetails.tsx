@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {  useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Typography } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { Typography, CircularProgress } from '@mui/material';
 
-import { RootState } from '../../redux/store';
+import { AppDispatch, RootState } from '../../redux/store';
 import { Country } from '../../types/types';
 import { CustomPaper, CustomArticle, CustomLink, CustomImg } from './StyledCountryDetails';
+import { loadCountries } from '../../redux/countriesSlice';
 
-export const CountryDetails = () => {
+export const CountryDetails = () => {  
+  const dispatch = useDispatch<AppDispatch>();
   const { countryccn3 } = useParams();
   const country: Country | undefined = useSelector((state: RootState) =>
     state.countries.allCountries.find((c: Country) => c.ccn3 === countryccn3)
   );
 
+  useEffect(() => {
+    dispatch(loadCountries());
+  }, [dispatch]);
+
 
   if (!country) {
-    return <div>Country not found</div>;
+    return <div><CircularProgress /></div>;
   }
 
   const { flags, region, population } = country;

@@ -33,46 +33,35 @@ export const loadCountries = createAsyncThunk(
     return fetchCountries();
   });
 
-  const savedSelectedCountries = localStorage.getItem('selectedCountries')
-  console.log(savedSelectedCountries);
-  
-
 const startCountries: CountryState = {
   allCountries: [], // Все страны
-  selectedCountries: savedSelectedCountries ? JSON.parse(savedSelectedCountries) : [], // Выбранные страны
+  selectedCountries: [], // Выбранные страны
   searchText: '',
   filteredCountries: [],
   status: Status.IDLE, // Статус загрузки
   error: undefined as string | undefined, // Ошибка загрузки данных
 };
 
-  if (savedSelectedCountries) {
-    startCountries.selectedCountries = JSON.parse(savedSelectedCountries);
-  }
-
 const countriesSlice = createSlice({
   name: 'countries',
   initialState: startCountries,
   reducers: {
     loadCountries: (state, action) => {
-      // action.payload содержит загруженные страны
       state.allCountries = action.payload;
     },
     setSelectedCountries: (state, action) => {
       state.selectedCountries = action.payload;
-      localStorage.setItem('selectedCountries', JSON.stringify(action.payload));
     },
     removeCountry: (state, action) => {
-      // Обработка удаления страны из выбранных и видимых стран
       const country = action.payload;
-      const isCountrySelected = state.selectedCountries.includes(country);
-      console.log(isCountrySelected, country, state.selectedCountries);
+      // const isCountrySelected = state.selectedCountries.includes(country);
+      // console.log(isCountrySelected, country, state.selectedCountries);
       
-      if (isCountrySelected) {
-        state.selectedCountries = state.selectedCountries.filter(selectedCountry => selectedCountry.ccn3 !== country.ccn3);
-      } else {
-        state.allCountries.filter(selectedCountry => selectedCountry !== country);
-      }
+      // if (isCountrySelected) {
+      //   state.selectedCountries = state.selectedCountries.filter(selectedCountry => selectedCountry.ccn3 !== country.ccn3);
+      // } else {
+        state.selectedCountries.filter(selectedCountry => selectedCountry === country);
+      // }
     },
     setSearchText: (state, action) => {
       const inputText = action.payload;

@@ -1,8 +1,7 @@
-// Router.js
 import React from 'react';
 import { createHashRouter as CreateRouter } from 'react-router-dom';
-import { App } from '../App'; // Замените на ваш компонент для главной страницы
-import { CountryDetails } from '../components/CountryDetails/CountryDetails'; // Ваш компонент для страницы деталей страны
+import { App } from '../App'; 
+import { CountryDetails } from '../components/CountryDetails/CountryDetails';
 
 export const router = CreateRouter([
     {
