@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import {  useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, CircularProgress } from '@mui/material';
+import { Typography, CircularProgress, Checkbox } from '@mui/material';
 
 import { AppDispatch, RootState } from '../../redux/store';
 import { Country } from '../../types/types';
@@ -11,20 +11,26 @@ import { loadCountries } from '../../redux/countriesSlice';
 export const CountryDetails = () => {  
   const dispatch = useDispatch<AppDispatch>();
   const { countryccn3 } = useParams();
-  const country: Country | undefined = useSelector((state: RootState) =>
+  
+  const country = useSelector((state: RootState) =>
     state.countries.allCountries.find((c: Country) => c.ccn3 === countryccn3)
   );
+  
+  const selectedCountries = useSelector((state: RootState) => state.countries.selectedCountries);
 
+  
   useEffect(() => {
     dispatch(loadCountries());
   }, [dispatch]);
-
-
+  
+  
   if (!country) {
     return <div><CircularProgress /></div>;
   }
+  
+  const { flags, region, population, ccn3 } = country;
 
-  const { flags, region, population } = country;
+  const isSelected = selectedCountries.some((c: Country) => c.ccn3 === ccn3);
 
   console.log(country);
 
@@ -43,6 +49,8 @@ export const CountryDetails = () => {
 
           <Typography variant="subtitle1">Population: {population}</Typography>
           <Typography variant="subtitle1">Region: {region}</Typography>
+          <Checkbox checked={isSelected} /> Is country selected
+
         </div>
       </CustomArticle>
       <CustomLink to='/'>
