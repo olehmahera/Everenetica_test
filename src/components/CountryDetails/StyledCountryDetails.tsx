@@ -12,8 +12,6 @@ export const CustomPaper = styled(Paper)`
 `;
 export const CustomBox = styled(Box)`
   && {
-    border: 1px solid;
-    height: 200px;
   }
 `;
 
@@ -37,5 +35,12 @@ export const CustomLink = styled(Link)`
       background-color: #302485;
     }
   }
+`;
+
+export const CustomImg = styled.img`
+  && {
+    border: 1px solid;
+    height: 200px;
+    }
 `;
 

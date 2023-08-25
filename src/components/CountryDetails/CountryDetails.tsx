@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Typography, Box, Paper } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import { RootState } from '../../redux/store';
 import { Country } from '../../types/types';
-import { CustomPaper, CustomBox, CustomArticle, CustomLink } from './StyledCountryDetails';
+import { CustomPaper, CustomArticle, CustomLink, CustomImg } from './StyledCountryDetails';
 
 export const CountryDetails = () => {
   const { countryccn3 } = useParams();
@@ -29,9 +29,9 @@ export const CountryDetails = () => {
       <Typography variant="subtitle1">CCN3-code: {country.ccn3}</Typography>
       <CustomArticle>
 
-        <CustomBox
-          component="img"
+        <CustomImg
           src={flags.svg}
+          alt="country_flag"
         />
         <div>
 
