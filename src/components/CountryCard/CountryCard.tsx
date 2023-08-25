@@ -18,11 +18,11 @@ export const CountryCard: FC<Props> = ({ country }) => {
   const selectedCountries = useSelector((state: RootState) => state.countries.selectedCountries);
   const dispatch = useDispatch();
 
-  const isSelected = selectedCountries.some((c) => c.ccn3 === ccn3);
+  const isSelected = selectedCountries.some((c: Country) => c.ccn3 === ccn3);
 
   const handleToggleCountrySelection = () => {
     const updatedSelectedCountries = isSelected
-      ? selectedCountries.filter((c) => c.ccn3 !== ccn3)
+      ? selectedCountries.filter((c: Country) => c.ccn3 !== ccn3)
       : [...selectedCountries, country];
     dispatch(setSelectedCountries(updatedSelectedCountries));
   }

@@ -6,6 +6,8 @@ export interface Country {
   flags: {
     svg: string;
   };
+  region: string;
+  population: number;
 };
 
 export enum Status {

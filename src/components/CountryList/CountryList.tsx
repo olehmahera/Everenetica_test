@@ -6,6 +6,7 @@ import { Grid, Button } from '@mui/material';
 import { filterCountries, loadCountries, setSelectedCountries } from '../../redux/countriesSlice';
 import { CountryCard } from '../CountryCard/CountryCard';
 import { CustomGrid } from './StyledCountryList'
+import { Country } from '../../types/types';
 
 export const CountryList: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -40,7 +41,7 @@ export const CountryList: FC = () => {
   return (
 
     <CustomGrid container spacing={3}>
-      {filteredCountries.map((country) => {
+      {filteredCountries.map((country: Country) => {
         return (
           <Grid item key={country.ccn3} xs={12} sm={6} md={4}>
             <CountryCard country={country} />
