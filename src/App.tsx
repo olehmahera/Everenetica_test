@@ -16,7 +16,7 @@ export const App: FC = () => {
           <Header />
           <Routes>
             <Route path="/" element={<CountryList />} />
-            <Route path="/country/:countryccn3" element={<CountryDetails />} />
+            <Route path="/:countryccn3" element={<CountryDetails />} />
           </Routes>
         </Container>
       </Router>

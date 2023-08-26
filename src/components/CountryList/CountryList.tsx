@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/store';
+import { AppDispatch, RootState } from '../../types/StoreTypes';
 import { Grid, Button } from '@mui/material';
 
 import { filterCountries, loadCountries, setSelectedCountries } from '../../redux/countriesSlice';
 import { CountryCard } from '../CountryCard/CountryCard';
 import { CustomGrid } from './StyledCountryList'
-import { Country } from '../../types/types';
+import { Country } from '../../types/Country';
 
 export const CountryList: FC = () => {
   const dispatch = useDispatch<AppDispatch>();

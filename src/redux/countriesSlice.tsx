@@ -1,6 +1,7 @@
 import { createSlice, createAction, ActionCreatorWithPayload, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchCountries } from '../api/countriesAPI';
-import { Country, CountryState, Status } from '../types/types';
+import { Country } from '../types/Country';
+import { CountryState, Status } from '../types/StoreTypes';
 
 const actionTypes = {
   toggle: 'countries/toggleCountrySelection',
@@ -34,12 +35,12 @@ export const loadCountries = createAsyncThunk(
   });
 
 const startCountries: CountryState = {
-  allCountries: [], // Все страны
-  selectedCountries: [], // Выбранные страны
+  allCountries: [],
+  selectedCountries: [],
   searchText: '',
   filteredCountries: [],
-  status: Status.IDLE, // Статус загрузки
-  error: undefined as string | undefined, // Ошибка загрузки данных
+  status: Status.IDLE,
+  error: undefined as string | undefined,
 };
 
 const countriesSlice = createSlice({
@@ -55,7 +56,7 @@ const countriesSlice = createSlice({
     removeCountry: (state, action) => {
       const country = action.payload;
         state.selectedCountries = state.selectedCountries.filter(selectedCountry => selectedCountry.ccn3 !== country.ccn3);
-      // }
+        state.allCountries = state.allCountries.filter(selectedCountry => selectedCountry.ccn3 !== country.ccn3);
     },
     setSearchText: (state, action) => {
       const inputText = action.payload;
