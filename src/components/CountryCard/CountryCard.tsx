@@ -1,17 +1,25 @@
 import React, { FC } from 'react';
 import { Checkbox, Button } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { filterCountries, removeCountry, setSelectedCountries } from '../../redux/countriesSlice';
-import { Country } from '../../types/types';
-import { RootState } from '../../redux/store';
-import { CustomCard, CustomCardContent, CustomContainer, CustomCardActions, CustomCardTitle, CustomCardCode } from './StyledCountryCard';
-import { Link } from 'react-router-dom';
+import { Country } from '../../types/Country';
+import { RootState } from '../../types/StoreTypes';
+import {
+  CustomCard,
+  CustomCardContent,
+  CustomContainer,
+  CustomCardActions,
+  CustomCardTitle,
+  CustomCardCode,
+  CustomCardLabel
+} from './StyledCountryCard';
 
 type Props = {
   country: Country;
 }
-
 
 export const CountryCard: FC<Props> = ({ country }) => {
   const { name, ccn3 } = country;
@@ -22,7 +30,7 @@ export const CountryCard: FC<Props> = ({ country }) => {
 
   const handleToggleCountrySelection = () => {
     const updatedSelectedCountries = isSelected
-      ? selectedCountries.filter((c: Country) => c.ccn3 !== ccn3)
+      ? selectedCountries.filter((selectedCountry: Country) => selectedCountry.ccn3 !== ccn3)
       : [...selectedCountries, country];
     dispatch(setSelectedCountries(updatedSelectedCountries));
     dispatch(filterCountries())
@@ -33,14 +41,12 @@ export const CountryCard: FC<Props> = ({ country }) => {
   };
 
   return (
-    <CustomCard
-      style={{ minHeight: '180px', }}
-    >
+    <CustomCard>
       <CustomCardContent>
-        <Link to={`/country/${ccn3}`}>
+        <Link to={`/${ccn3}`}>
 
           <CustomContainer>
-            <CustomCardTitle variant="h6" style={{ marginBottom: '12px', }} >
+            <CustomCardTitle variant="h6">
               Name: {name.official}
             </CustomCardTitle>
             <CustomCardCode variant="subtitle1">
@@ -50,12 +56,20 @@ export const CountryCard: FC<Props> = ({ country }) => {
         </Link>
 
         <CustomCardActions>
-
-          <Button onClick={handleRemoveCountry} variant='contained'>
-            Delete
-          </Button>
-          <Checkbox checked={isSelected} onChange={handleToggleCountrySelection} />
-
+          <CustomCardLabel >
+            Unselect
+            <Button
+              onClick={handleRemoveCountry}
+              variant='contained'
+              color='error'
+            >
+              <ClearIcon />
+            </Button>
+          </CustomCardLabel>
+          <CustomCardLabel >
+            <Checkbox checked={isSelected} onChange={handleToggleCountrySelection} />
+            Select
+          </CustomCardLabel>
         </CustomCardActions>
       </CustomCardContent>
     </CustomCard>

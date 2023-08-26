@@ -3,8 +3,8 @@ import {  useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, CircularProgress, Checkbox } from '@mui/material';
 
-import { AppDispatch, RootState } from '../../redux/store';
-import { Country } from '../../types/types';
+import { AppDispatch, RootState } from '../../types/StoreTypes';
+import { Country } from '../../types/Country';
 import { CustomPaper, CustomArticle, CustomLink, CustomImg } from './StyledCountryDetails';
 import { loadCountries } from '../../redux/countriesSlice';
 
@@ -13,7 +13,7 @@ export const CountryDetails = () => {
   const { countryccn3 } = useParams();
   
   const country = useSelector((state: RootState) =>
-    state.countries.allCountries.find((c: Country) => c.ccn3 === countryccn3)
+    state.countries.allCountries.find((country: Country) => country.ccn3 === countryccn3)
   );
   
   const selectedCountries = useSelector((state: RootState) => state.countries.selectedCountries);
@@ -25,20 +25,18 @@ export const CountryDetails = () => {
   
   
   if (!country) {
-    return <div><CircularProgress /></div>;
+    return <CircularProgress />;
   }
   
-  const { flags, region, population, ccn3 } = country;
+  const { flags, region, population, ccn3, name } = country;
 
-  const isSelected = selectedCountries.some((c: Country) => c.ccn3 === ccn3);
-
-  console.log(country);
+  const isSelected = selectedCountries.some((country: Country) => country.ccn3 === ccn3);
 
 
   return (
     <CustomPaper>
-      <Typography variant="h4">Country name: {country.name.official}</Typography>
-      <Typography variant="subtitle1">CCN3-code: {country.ccn3}</Typography>
+      <Typography variant="h4">Country name: {name.official}</Typography>
+      <Typography variant="subtitle1">CCN3-code: {ccn3}</Typography>
       <CustomArticle>
 
         <CustomImg
