@@ -5,7 +5,6 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch } from 'react-redux';
 import { setSearchText } from '../../redux/countriesSlice';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../types/StoreTypes';
 
 import {
@@ -14,12 +13,13 @@ import {
   CustomToolbar,
   CustomButton
 } from './StyledHeader'
+import { useAppSelector } from '../../redux/hooks';
 
 
 export const Header: FC = () => {
   const dispatch = useDispatch();
 
-  const searchText = useSelector<RootState>(state => state.countries.searchText)
+  const searchText = useAppSelector(state => state.countries.searchText)
 
 
   const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {

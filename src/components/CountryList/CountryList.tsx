@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../types/StoreTypes';
 import { Grid, Button } from '@mui/material';
 
@@ -7,19 +7,20 @@ import { filterCountries, loadCountries, setSelectedCountries } from '../../redu
 import { CountryCard } from '../CountryCard/CountryCard';
 import { CustomGrid } from './StyledCountryList'
 import { Country } from '../../types/Country';
+import { useAppSelector } from '../../redux/hooks';
 
 export const CountryList: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const searchText = useSelector((state: RootState) => state.countries.searchText);
+  const searchText = useAppSelector((state) => state.countries.searchText);
 
-  const selectedCountries = useSelector(
+  const selectedCountries = useAppSelector(
     (state: RootState) => state.countries.selectedCountries
   );
 
   console.log(selectedCountries);
 
-  const filteredCountries = useSelector((state: RootState) => state.countries.filteredCountries);
+  const filteredCountries = useAppSelector((state) => state.countries.filteredCountries);
 
   const hasSelectedCountries = selectedCountries.length > 0;
 

@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import { Checkbox, Button } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { filterCountries, removeCountry, setSelectedCountries } from '../../redux/countriesSlice';
 import { Country } from '../../types/Country';
-import { RootState } from '../../types/StoreTypes';
 import {
   CustomCard,
   CustomCardContent,
@@ -16,6 +15,7 @@ import {
   CustomCardCode,
   CustomCardLabel
 } from './StyledCountryCard';
+import { useAppSelector } from '../../redux/hooks';
 
 type Props = {
   country: Country;
@@ -23,7 +23,7 @@ type Props = {
 
 export const CountryCard: FC<Props> = ({ country }) => {
   const { name, ccn3 } = country;
-  const selectedCountries = useSelector((state: RootState) => state.countries.selectedCountries);
+  const selectedCountries = useAppSelector((state) => state.countries.selectedCountries);
   const dispatch = useDispatch();
 
   const isSelected = selectedCountries.some((c: Country) => c.ccn3 === ccn3);
