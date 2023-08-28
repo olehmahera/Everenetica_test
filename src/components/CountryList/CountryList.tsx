@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { Grid, Button } from '@mui/material';
 
-import { filterCountries, loadCountries, setSelectedCountries } from '../../redux/countriesSlice';
+import { filterCountries, loadCountries, clearSelected } from '../../redux/countriesSlice';
 import { CountryCard } from '../CountryCard/CountryCard';
 import { CustomGrid } from './StyledCountryList'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -16,7 +16,7 @@ export const CountryList: FC = () => {
   const hasSelectedCountries = selectedCountries.length > 0;
 
   const handleClearSelected = () => {
-    dispatch(setSelectedCountries([]));
+    dispatch(clearSelected());
   };
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { Checkbox, Button } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Link } from 'react-router-dom';
 
-import { filterCountries, removeCountry, setSelectedCountries } from '../../redux/countriesSlice';
+// import { filterCountries, removeCountry, setSelectedCountries } from '../../redux/countriesSlice';
 import { Country } from '../../types/Country';
 import {
   CustomCard,
@@ -15,6 +15,7 @@ import {
   CustomCardLabel
 } from './StyledCountryCard';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { removeCountry, setSelectedCountries } from '../../redux/countriesSlice';
 
 type Props = {
   country: Country;
@@ -25,15 +26,10 @@ export const CountryCard: FC<Props> = ({ country }) => {
   const selectedCountries = useAppSelector((state) => state.countries.selectedCountries);
   const dispatch = useAppDispatch();
 
-  const isSelected = selectedCountries.some((c: Country) => c.ccn3 === ccn3);
+  const isSelected = selectedCountries.some((c) => c.ccn3 === ccn3);
 
-  const handleToggleCountrySelection = () => {
-    const updatedSelectedCountries = isSelected
-      ? selectedCountries.filter((selectedCountry: Country) => selectedCountry.ccn3 !== ccn3)
-      : [...selectedCountries, country];
-    dispatch(setSelectedCountries(updatedSelectedCountries));
-    dispatch(filterCountries())
-  }
+  const handleToggleCountrySelection = (country: Country) => dispatch(setSelectedCountries(country));
+  
 
   const handleRemoveCountry = () => {
     dispatch(removeCountry(country));
@@ -66,7 +62,7 @@ export const CountryCard: FC<Props> = ({ country }) => {
             </Button>
           </CustomCardLabel>
           <CustomCardLabel >
-            <Checkbox checked={isSelected} onChange={handleToggleCountrySelection} />
+            <Checkbox checked={isSelected} onChange={() => handleToggleCountrySelection(country)} />
             Select
           </CustomCardLabel>
         </CustomCardActions>
