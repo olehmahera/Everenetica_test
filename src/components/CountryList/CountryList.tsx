@@ -11,8 +11,6 @@ export const CountryList: FC = () => {
 
   const { searchText, selectedCountries, filteredCountries } = useAppSelector((state) => state.countries);
 
-  console.log(selectedCountries);
-
   const hasSelectedCountries = selectedCountries.length > 0;
 
   const handleClearSelected = () => {
@@ -26,9 +24,6 @@ export const CountryList: FC = () => {
   useEffect(() => {
     dispatch(filterCountries());
   }, [dispatch, searchText, selectedCountries]);
-
-  console.log(filteredCountries);
-
 
   return (
 
