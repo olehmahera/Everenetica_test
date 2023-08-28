@@ -1,26 +1,17 @@
 import React, { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '../../types/StoreTypes';
 import { Grid, Button } from '@mui/material';
 
 import { filterCountries, loadCountries, setSelectedCountries } from '../../redux/countriesSlice';
 import { CountryCard } from '../CountryCard/CountryCard';
 import { CustomGrid } from './StyledCountryList'
-import { Country } from '../../types/Country';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 export const CountryList: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
-  const searchText = useAppSelector((state) => state.countries.searchText);
-
-  const selectedCountries = useAppSelector(
-    (state: RootState) => state.countries.selectedCountries
-  );
+  const { searchText, selectedCountries, filteredCountries } = useAppSelector((state) => state.countries);
 
   console.log(selectedCountries);
-
-  const filteredCountries = useAppSelector((state) => state.countries.filteredCountries);
 
   const hasSelectedCountries = selectedCountries.length > 0;
 
@@ -42,7 +33,7 @@ export const CountryList: FC = () => {
   return (
 
     <CustomGrid container spacing={3}>
-      {filteredCountries.map((country: Country) => {
+      {filteredCountries.map((country) => {
         return (
           <Grid item key={country.ccn3} xs={12} sm={6} md={4}>
             <CountryCard country={country} />

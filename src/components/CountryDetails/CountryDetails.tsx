@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import {  useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Typography, CircularProgress, Checkbox } from '@mui/material';
 
-import { AppDispatch } from '../../types/StoreTypes';
 import { Country } from '../../types/Country';
 import { CustomPaper, CustomArticle, CustomLink, CustomImg } from './StyledCountryDetails';
 import { loadCountries } from '../../redux/countriesSlice';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 export const CountryDetails = () => {  
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const { countryccn3 } = useParams();
   
   const country = useAppSelector((state) =>
