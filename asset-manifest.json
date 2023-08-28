@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Everenetica_test/static/css/main.b4337364.css",
-    "main.js": "/Everenetica_test/static/js/main.9934f777.js",
+    "main.js": "/Everenetica_test/static/js/main.69376aa5.js",
     "index.html": "/Everenetica_test/index.html",
     "main.b4337364.css.map": "/Everenetica_test/static/css/main.b4337364.css.map",
-    "main.9934f777.js.map": "/Everenetica_test/static/js/main.9934f777.js.map"
+    "main.69376aa5.js.map": "/Everenetica_test/static/js/main.69376aa5.js.map"
   },
   "entrypoints": [
     "static/css/main.b4337364.css",
-    "static/js/main.9934f777.js"
+    "static/js/main.69376aa5.js"
   ]
 }
